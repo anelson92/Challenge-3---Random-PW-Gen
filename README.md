@@ -19,4 +19,4 @@ THEN the password is either displayed in an alert or written to the page
 
 ** Screenshot: **
 
-https://imgur.com/a/vVR26Tc
+![image](https://user-images.githubusercontent.com/115906480/205518591-217c1c6c-f0c6-4b46-add6-f2e8896de07f.png)
