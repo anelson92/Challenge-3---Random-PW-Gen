@@ -1,61 +1,65 @@
-const generateBtn = document.querySelector("#generate");
-
-const generatePassword = () => {
-
   // Password options
   const alpha = /[abcdefghijklmnopqrstuvwxyz]/;
   const uppers = /[ABCDEFGHIJKLMNOPQRSTUVWXYZ]/;
   const incNumbers = /[0123456789]/;
   const incSymbols = /[!@#$%^&*_+=]/;
- 
-  var pwLength = prompt('How many characters would you like your password to be? \n(Choose a number between 8-128.)');
+
+const generatePassword = () => {
+
+  let charSet = "";
+
+  var pwLength = prompt("How many characters would you like your password to be? (Choose a number between 8-128.)");
     while (pwLength < 8 || pwLength > 128) {
-      alert('Sorry, please choose a number between 8-128.');
-      pwLength = prompt('How many characters would you like your password to be? (Choose a number between 8-128.)');
+      alert("Sorry, please choose a number between 8-128.");
+      pwLength = prompt("How many characters would you like your password to be? (Choose a number between 8-128.)")
     }
   
-    var lowerCase = confirm('Would you like to include lowercase letters?')
-    var upperCase = confirm('Would you like to include uppercase letters?')
-    var num = confirm('Would you like to include numbers?')
-    var symbols = confirm('Would you like to include special characters?')
+    var lowerCase = confirm("Would you like to include lowercase letters?")
+    var upperCase = confirm("Would you like to include uppercase letters?")
+    var num = confirm("Would you like to include numbers?")
+    var symbols = confirm("Would you like to include special characters?")
 
-    if(!alpha && !upper && !num && !symbols) {
-      alert('You did not choose any options! No password can be generated.')
-      return '';
+    if(!lowerCase && !upperCase && !num && !symbols) {
+      alert("You did not choose any options! No password can be generated.")
+      return "";
     }
-
-    let charSet = '';
-   
+ 
     if(lowerCase) {
-      charSet += 'abcdefghijklmnopqrstuvwxyz';
+      charSet += "abcdefghijklmnopqrstuvwxyz";
     }
     if(upperCase) {
-      charSet += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      charSet += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     }
     if(num) {
-      charSet += '0123456789';
+      charSet += "0123456789";
     }
     if(symbols) {
-      charSet += '!@#$%^&*_+=';
+      charSet += "!@#$%^&*_+=";
     }
 
-    var password = '';
-    for (var i = 0; i < password.length; i++) {
-      password += charSet.charAt(Math.floor(Math.random() * charSet.length))
+    var password = "";
+    
+    for(let i = 0; i <= pwLength; i++) {
+      let randomNum = Math.floor(Math.random() * charSet.length);
+      password += charSet.substring(randomNum, randomNum + 1);
     }
-    return password; 
 
-    var generateBtn = document.querySelector('#generate');
+    return password;
+}
+
+let passwordText = document.querySelector("#password");
+var generateBtn = document.querySelector("#generate");
 
     function writePassword() {
       var password = generatePassword();
-      var passwordText = document.querySelector('#password');
+      var passwordText = document.querySelector("#password");
 
       passwordText.value = password;
     }
-};
 
-generateBtn.addEventListener("click", generatePassword);
+generateBtn.addEventListener("click", writePassword);
+
+
 
 
 
