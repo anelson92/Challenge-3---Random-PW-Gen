@@ -1,40 +1,61 @@
+const generateBtn = document.querySelector("#generate");
 
-// Password options
-var alpha = "abcdefghijklmnopqrstuvwxyz";
-var uppers = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-var incNumbers = "0123456789";
-var incSymbols = "!@#$%^&*_-+=";
-
-var length = document.getElementById("length");
-var incNumbers = document.getElementById("numbers");
-var incSymbols = document.getElementById("symbols");
-var generateBtn = document.getElementById("generate");
-var passwordTxt = document.getElementById("password");
-var alphaUpper = document.getElementById("uppercase");
-
-// write password based off above
 const generatePassword = () => {
+
+  // Password options
+  const alpha = /[abcdefghijklmnopqrstuvwxyz]/;
+  const uppers = /[ABCDEFGHIJKLMNOPQRSTUVWXYZ]/;
+  const incNumbers = /[0123456789]/;
+  const incSymbols = /[!@#$%^&*_+=]/;
  
-  let password = "";
-  let chars = "";
+  var pwLength = prompt('How many characters would you like your password to be? \n(Choose a number between 8-128.)');
+    while (pwLength < 8 || pwLength > 128) {
+      alert('Sorry, please choose a number between 8-128.');
+      pwLength = prompt('How many characters would you like your password to be? (Choose a number between 8-128.)');
+    }
   
-  for (let i = 0; i < length; i++) {
-    let randomNum = Math.floor(Math.random() * chars.length);
-    password += chars.substring(randomNum, randomNum + 1);
+    var lowerCase = confirm('Would you like to include lowercase letters?')
+    var upperCase = confirm('Would you like to include uppercase letters?')
+    var num = confirm('Would you like to include numbers?')
+    var symbols = confirm('Would you like to include special characters?')
 
-  }
+    if(!alpha && !upper && !num && !symbols) {
+      alert('You did not choose any options! No password can be generated.')
+      return '';
+    }
 
-  return password;
+    let charSet = '';
+   
+    if(lowerCase) {
+      charSet += 'abcdefghijklmnopqrstuvwxyz';
+    }
+    if(upperCase) {
+      charSet += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    }
+    if(num) {
+      charSet += '0123456789';
+    }
+    if(symbols) {
+      charSet += '!@#$%^&*_+=';
+    }
+
+    var password = '';
+    for (var i = 0; i < password.length; i++) {
+      password += charSet.charAt(Math.floor(Math.random() * charSet.length))
+    }
+    return password; 
+
+    var generateBtn = document.querySelector('#generate');
+
+    function writePassword() {
+      var password = generatePassword();
+      var passwordText = document.querySelector('#password');
+
+      passwordText.value = password;
+    }
 };
 
-generateBtn.addEventListener("click", () => {
+generateBtn.addEventListener("click", generatePassword);
 
-  let characters = alpha;
-  alphaUpper.checked ? (characters += uppers) : "";
-  incNumbers.checked ? (characters += numbers) : "";
-  incSymbols.checked ? (characters += symbols) : "";
-  passwordTxt.value = generatePassword();
-  
-});
 
 
